@@ -1,35 +1,31 @@
+import { useNavigate } from 'react-router-dom'
+
+import MyInput from '../../components/MyInput'
 
 import './index.scss'
 
 export default function LoginPage() {
+
+    const navigate = useNavigate()
 
     let username = ''
     let password = ''
 
     function signIn() {
         if (username === 'uedsonreis' && password === '123456') {
-            alert('Login realizado com sucess!')
+            navigate('/user/create')
         } else {
-            alert('Usuário/senha inválido(a)')
+            alert('Login/senha inválido(a)')
         }
     }
 
     return (
         <div className='login-page'>
-            <header>
-                Página de Acesso
-            </header>
+            <header>Página de Acesso</header>
             
             <main>
-                <div>
-                    <label htmlFor="username">Usuário:</label>
-                    <input id="username" type="text" onChange={e => username = e.target.value } />
-                </div>
-                
-                <div>
-                    <label htmlFor="password">Senha:</label>
-                    <input id="password" type="password" onChange={e => password = e.target.value } />
-                </div>
+                <MyInput id='username' label='Login' change={value => username = value} />
+                <MyInput id='password' label='Senha' change={value => password = value} type='password' />
             </main>
 
             <footer>
