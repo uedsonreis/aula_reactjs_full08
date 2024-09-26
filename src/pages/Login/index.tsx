@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 
 import MyInput from '../../components/MyInput'
 
+import * as authService from '../../services/auth.service'
+
 import './index.scss'
 
 export default function LoginPage() {
@@ -12,11 +14,13 @@ export default function LoginPage() {
     let password = ''
 
     function signIn() {
-        if (username === 'uedsonreis' && password === '123456') {
-            navigate('/user/create')
-        } else {
+        authService.login(username, password).then(isLogged => {
+            if (isLogged) navigate('/home')
+            else alert('Login/senha inválido(a)')
+        }).catch(error => {
+            console.error(error)
             alert('Login/senha inválido(a)')
-        }
+        })
     }
 
     return (
