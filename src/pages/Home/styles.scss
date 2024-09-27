@@ -1,0 +1,14 @@
+.page-home {
+    header {
+        justify-content: space-between;
+    }
+}
+
+.list-item {
+    width: 98vw;
+    padding: 10px;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+}
