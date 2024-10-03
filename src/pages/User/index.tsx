@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { userService } from '../../services/user.service'
+import { hasToken } from '../../services/auth.service'
 import { User } from '../../models/user'
 
 import MyInput from '../../components/MyInput'
@@ -17,6 +18,17 @@ export default function UserPage() {
     const [password, setPassword] = React.useState('')
 
     let confirmPass = ''
+
+    React.useEffect(() => {
+        if (!hasToken()) {
+            alert('Usuário não logado!')
+            navigate('/login')
+        }
+    })
+
+    function goBack() {
+        navigate(-1)
+    }
 
     function save() {
         if (name === null || name.trim() === '') {
@@ -40,11 +52,12 @@ export default function UserPage() {
 
         userService.create(user).then(saved => {
             alert('Usuário salvo com sucesso!')
-            navigate(-1)
+            goBack()
         }).catch((error: Error) => {
             if (error.cause === 400) {
                 alert('Usuário já existe')
             } else {
+                alert('Sua sessão expirou!')
                 navigate('/login')
             }
         })
@@ -62,6 +75,7 @@ export default function UserPage() {
             </main>
 
             <footer>
+                <button className='goBack' onClick={goBack}>Cancelar</button>
                 <button onClick={save}>Salvar</button>
             </footer>
         </div>

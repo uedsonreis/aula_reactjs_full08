@@ -11,4 +11,17 @@
     margin-bottom: 10px;
     justify-content: space-between;
     border-bottom: 1px solid gray;
+
+    button {
+        margin-left: 5px;
+    }
+
+    .editButton {
+        color: blue;
+    }
+
+    .delButton {
+        color: red;
+    }
+
 }

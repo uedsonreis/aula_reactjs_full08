@@ -30,7 +30,13 @@ class UserService {
         return await this.getData(response) as User[]
     }
 
-    // get - pegar um único usuário
+    public async getById(id: number) {
+        const response = await fetch(`${this.url}/${id}`, {
+            method: 'GET',
+            headers: this.getHeaders()
+        })
+        return await this.getData(response) as User
+    }
 
     public async create(user: User) {
         const response = await fetch(this.url, {
@@ -41,9 +47,22 @@ class UserService {
         return await this.getData(response) as User
     }
 
-    // put - editar um usuário
+    public async update(user: User) {
+        const response = await fetch(`${this.url}/${user.id}`, {
+            method: 'PUT',
+            headers: this.getHeaders(),
+            body: JSON.stringify(user)
+        })
+        return await this.getData(response) as User
+    }
 
-    // delete - remover um usuário
+    public async delete(id: number) {
+        const response = await fetch(`${this.url}/${id}`, {
+            method: 'DELETE',
+            headers: this.getHeaders()
+        })
+        return await this.getData(response) as boolean
+    }
 }
 
 export const userService = new UserService()
